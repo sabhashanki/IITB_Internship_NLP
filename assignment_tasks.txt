@@ -1,0 +1,5 @@
+Input - text
+output - json format (language detection module, important keyword module, topic prediction module, 5 hashtags module ) with confidence score
+lib - nltk, spacy or similar
+enbedding - word2vec, BERT, tweetbert
+REST - to return JSON
