@@ -3,3 +3,17 @@ output - json format (language detection module, important keyword module, topic
 lib - nltk, spacy or similar
 enbedding - word2vec, BERT, tweetbert
 REST - to return JSON
+
+
+Submission 
+1. update readme, references, requirements
+2. google form with name, mail, phone, github link, API endpoints
+
+Evaluation
+1. Result accuracy
+2. Design
+3. Coding practice
+4. Resource Utilization 
+5. Reliability
+6. Logging, Error handling
+7. test cases
