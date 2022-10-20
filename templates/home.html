@@ -33,11 +33,14 @@
 
     <div class="container">
 
-    <h3>{{ prediction_text }}</h3>
+    <h3>{{ prediction_text1 }}</h3>
+    <h3>{{ prediction_text2 }}</h3>
+    <h3>{{ prediction_text3 }}</h3>
+
     <br>
     <form action="\predict" method="post">
             <h5>Enter the Text</h5>
-            <input name="tweet" type="text">
+            <input name="data" type="text">
             <br>
             <input type="submit" value="Prediction" class="btn btn-secondary">
     </form>
