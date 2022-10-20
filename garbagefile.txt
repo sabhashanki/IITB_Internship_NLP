@@ -1,0 +1,22 @@
+    
+"""
+encode = {
+3:'English',  
+4: 'French', 
+13: 'Spanish',
+11: 'Portugeese',
+8: 'Italian',
+12 : 'Russian',
+14: 'Sweedish',
+10: 'Malayalam',
+2 : 'Dutch',
+0 : 'Arabic',
+16 : 'Turkish',
+5 : 'German',
+15 : 'Tamil',
+1 : 'Danish',
+9 : 'Kannada',
+6 : 'Greek',
+7 : 'Hindi',
+}
+"""

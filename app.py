@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from key_extract import extract
+from key_extract import extract, hashtagg
 from lang_detect import lang_prediction
 from topic_model import topic_prediction
 
@@ -10,14 +10,15 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@app.route('/predicts', methods = ['POST'])
+@app.route('/predict', methods = ['POST'])
 def predict():
     data = request.form['data']
     keywords = extract(data)
     lang = lang_prediction(data)
     topic = topic_prediction(data)
-    return render_template('home.html', prediction_text1 = f'Text Language : {lang}', prediction_text2 = f'Text topic prediction is : {topic}', prediction_text3 = f'Important keywords : {keywords}')
-
+    hashta = hashtagg(data)
+    return render_template('home.html', prediction_text1 = f'Text Language : {lang}', prediction_text2 = f'Text topic prediction is : {topic}', prediction_text3 = f'Important keywords : {keywords}', prediction_text4 = f'Predicted Hashtags : {hashta}')
+"""
 @app.route('/predict', methods = ['POST'])
 def ReturnJSON():
     data = request.form['data']
@@ -37,7 +38,7 @@ def ReturnJSON():
                     ]
                 }
     return jsonify(data)
-
+"""
 # Driver Code
 if __name__ == '__main__':
     app.run(debug = True)
