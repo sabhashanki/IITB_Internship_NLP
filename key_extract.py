@@ -16,3 +16,4 @@ def extract(data):
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
     return final_keywords
+
