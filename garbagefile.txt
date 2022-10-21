@@ -39,3 +39,15 @@ model.fit(xtrain, ytrain, epochs=4)"""
     lang = np.argmax(lang)
     lang = le.inverse_transform([lang])
     print('ANN Prediction : ',lang[0])"""
+
+
+
+"""languages = [
+    'English', 'French', 'Dutch', 'Spanish', 'Greek', 'Russian', 'Danish', 'Italian',
+    'Turkish', 'Swedish', 'Arabic', 'German'
+    ]
+
+for lang in languages:
+    allwords = stopwords.words(lang)
+    allstopwords.extend(allwords)
+"""
