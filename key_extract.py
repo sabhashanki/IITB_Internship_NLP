@@ -5,21 +5,23 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.stem.wordnet import WordNetLemmatizer
 import string
-exclude = set(string.punctuation)
+
+#assigning punctuations, stopwords and initializing lemmatizer
+punch = set(string.punctuation)
+allstopwords = stopwords.words('English')
 lemma = WordNetLemmatizer()
 
-allstopwords = stopwords.words('English')
-
+#cleaning the data
 def clean(data):
-    stop_free = " ".join([i for i in data.lower().split() if i not in allstopwords])
-    punc_free = ''.join(ch for ch in stop_free if ch not in exclude)
-    data = " ".join(lemma.lemmatize(word) for word in punc_free.split())
-    data = " ".join(re.sub(r'\d', "", word) for word in data.split())
+    stop_free = " ".join([i for i in data.lower().split() if i not in allstopwords])    #removing stopwords 
+    punc_free = ''.join(ch for ch in stop_free if ch not in punch)                      #removing punctuations
+    data = " ".join(lemma.lemmatize(word) for word in punc_free.split())                #lemmatizing
+    data = " ".join(re.sub(r'\d', "", word) for word in data.split())                   #removing empty spaces
     return data
-    
+
 def extract(data):
     data = clean(data)
-    cvector = CountVectorizer(ngram_range=(1,1))
+    cvector = CountVectorizer(ngram_range=(1,1))                                        
     cvector.fit_transform([data])
     keywords = cvector.get_feature_names_out()
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
