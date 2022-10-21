@@ -20,3 +20,22 @@ encode = {
 7 : 'Hindi',
 }
 """
+
+
+
+"""model = Sequential()
+model.add(Dense(100, input_dim=38700, activation='relu'))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(50, activation='relu'))
+model.add(Dense(17, activation='softmax'))
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+#Train model
+model.fit(xtrain, ytrain, epochs=4)"""
+
+"""def prediction2(text):
+    x = cv.transform([text]).toarray()
+    lang = model.predict(x, verbose = 0)
+    lang = np.argmax(lang)
+    lang = le.inverse_transform([lang])
+    print('ANN Prediction : ',lang[0])"""
