@@ -15,7 +15,7 @@ def predict():
     data = request.form['data']
     keywords = extract(data)
     lang = lang_prediction(data)
-    topic = topic_prediction(data)
+    topic = [i.split('*')[1] for i in list([topic_prediction(data)])]
     hashta = hashtagg(data)
     return render_template('home.html', prediction_text1 = f'Text Language : {lang}', prediction_text2 = f'Text topic prediction is : {topic}', prediction_text3 = f'Important keywords : {keywords}', prediction_text4 = f'Predicted Hashtags : {hashta}')
 """
