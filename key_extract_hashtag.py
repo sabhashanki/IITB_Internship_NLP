@@ -27,6 +27,7 @@ def extract(data):
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     data_embed = model.encode([data])
     keyword_embed = model.encode(keywords)
+    global top_n
     top_n = 5
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
@@ -40,7 +41,7 @@ def hashtagg(data):
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     data_embed = model.encode([data])
     keyword_embed = model.encode(keywords)
-    top_n = 5
+    #top_n = 5
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
     final_keywords = ['#' + word.replace(' ','') for word in final_keywords]

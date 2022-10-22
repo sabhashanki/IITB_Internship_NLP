@@ -24,10 +24,14 @@ except:
 y = df.Language
 encoded_y = le.fit_transform(y)
 x_vector = cv.fit_transform(data).toarray()
+logging.info('encoded y and data vectorized')
 
 #Prediction module 
 def lang_prediction(text):
     x = cv.transform([text]).toarray()
     lang = naive_model.predict(x)
     lang = le.inverse_transform(lang)
+    logging.info('prediction function executed')
     return lang[0]
+    
+#lang_prediction('hello world')
