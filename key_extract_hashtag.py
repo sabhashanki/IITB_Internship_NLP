@@ -6,10 +6,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.stem.wordnet import WordNetLemmatizer
 import string
 
-#assigning punctuations, stopwords and initializing lemmatizer
+#assigning punctuations, stopwords, ngram and initializing lemmatizer
 punch = set(string.punctuation)
 allstopwords = stopwords.words('English')
 lemma = WordNetLemmatizer()
+extract_ngram = (1,1)
+hashtag_ngram = (1,2)
 
 #cleaning the data
 def clean(data):
@@ -21,7 +23,7 @@ def clean(data):
 
 def extract(data):
     data = clean(data)
-    cvector = CountVectorizer(ngram_range=(1,1))                                        
+    cvector = CountVectorizer(ngram_range=extract_ngram)                                        
     cvector.fit_transform([data])
     keywords = cvector.get_feature_names_out()
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
@@ -35,7 +37,7 @@ def extract(data):
 
 def hashtagg(data):
     data = clean(data)
-    cvector = CountVectorizer(ngram_range=(1,2))
+    cvector = CountVectorizer(ngram_range=hashtag_ngram)
     cvector.fit_transform([data])
     keywords = cvector.get_feature_names_out()
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')

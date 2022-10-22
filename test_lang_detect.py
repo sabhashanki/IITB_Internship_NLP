@@ -16,6 +16,8 @@ class TestModule(unittest.TestCase):
     def test_prediction(self):
         prediction = ld.lang_prediction('Hello World')
         self.assertEqual(prediction, 'English')
-        
+        prediction = ld.lang_prediction('Como estas')
+        self.assertEqual(prediction, 'Spanish')
+         
 if __name__ == '__main__':
     unittest.main()
