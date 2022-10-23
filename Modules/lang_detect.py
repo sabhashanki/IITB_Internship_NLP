@@ -6,8 +6,8 @@ import logging
 logging.basicConfig(level = logging.INFO, filename = 'lang_detect_python.log', filemode = 'w', format = '%(asctime)s - %(levelname)s - %(message)s')
 
 # Initialization
-naive_model = pickle.load(open('naive_lang_detect_model1.pkl','rb'))
-data = pickle.load(open('data.pkl','rb'))
+naive_model = pickle.load(open('../pickle_exports/naive_lang_detect_model1.pkl','rb'))
+data = pickle.load(open('../pickle_exports/data.pkl','rb'))
 le = LabelEncoder()
 cv = CountVectorizer()
 
