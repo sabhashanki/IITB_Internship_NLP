@@ -1,4 +1,6 @@
 import unittest
+import sys
+sys.path.append('Modules')
 import key_extract_hashtag as ke
 
 sample_data = """

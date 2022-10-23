@@ -1,10 +1,12 @@
 import unittest
+import sys
+sys.path.append('Modules')
 import lang_detect as ld
 
 class TestModule(unittest.TestCase):
 
     def test_file_import(self):
-        file = ld.df
+        file = ld.y
         self.assertIsNotNone(file)
     
     def test_pickle_imports(self):
