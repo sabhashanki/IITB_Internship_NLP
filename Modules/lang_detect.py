@@ -27,4 +27,4 @@ def lang_prediction(text):
     logging.info('prediction function executed')
     return lang[0]
     
-print(lang_prediction('hello world'))
+# print(lang_prediction('hello world'))
