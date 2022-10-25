@@ -1,4 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
+import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
 from nltk.corpus import stopwords
 import re
 from sentence_transformers import SentenceTransformer
@@ -12,20 +15,17 @@ import gensim
 from gensim import corpora
 from flask import Flask, render_template, request, jsonify
 
-
-#assigning punctuations, stopwords, ngram and initializing lemmatizer
-punch = set(string.punctuation)
-allstopwords = stopwords.words('English')
-lemma = WordNetLemmatizer()
-extract_ngram = (1,1)
-hashtag_ngram = (1,2)
-
 # Initialization
 naive_model = pickle.load(open('naive_lang_detect_model.pkl','rb'))
 data = pickle.load(open('data.pkl','rb'))
 y = pickle.load(open('y.pkl','rb'))
+punch = set(string.punctuation)
+allstopwords = stopwords.words('english')
 le = LabelEncoder()
 cv = CountVectorizer()
+lemma = WordNetLemmatizer()
+extract_ngram = (1,1)
+hashtag_ngram = (1,2)
 
 #label encoding and vectorization
 encoded_y = le.fit_transform(y)
@@ -48,7 +48,6 @@ def extract(data):
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     data_embed = model.encode([data])
     keyword_embed = model.encode(keywords)
-    global top_n
     top_n = 5
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
@@ -62,7 +61,7 @@ def hashtagg(data):
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     data_embed = model.encode([data])
     keyword_embed = model.encode(keywords)
-    #top_n = 5
+    top_n = 5
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
     final_keywords = ['#' + word.replace(' ','') for word in final_keywords]
@@ -102,4 +101,4 @@ def predict():
 
 # Driver Code
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
