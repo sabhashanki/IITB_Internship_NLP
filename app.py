@@ -1,7 +1,5 @@
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
 from nltk.corpus import stopwords
 import re
 from sentence_transformers import SentenceTransformer
