@@ -1,6 +1,16 @@
 FROM python:3.10.7
-COPY . /app
-WORKDIR /app
-RUN pip install -r requirements.txt
-EXPOSE $PORT
-CMD gunicorn --workers=4 --bind 0.0.0.0:$PORT app:app
+
+RUN pip install --upgrade pip
+
+RUN adduser -D myuser
+USER myuser
+WORKDIR /home/myuser
+
+COPY --chown=myuser:myuser requirements.txt requirements.txt
+RUN pip install --user -r requirements.txt
+
+ENV PATH="/home/myuser/.local/bin:${PATH}"
+
+COPY --chown=myuser:myuser . .
+
+CMD ["python", "app.py", "runserver", "0.0.0.0:8000"]
