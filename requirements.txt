@@ -3,7 +3,7 @@ gunicorn
 regex
 numpy
 pandas
-sklearn
+scikit-learn
 pickle
 nltk
 sentence_transformers
