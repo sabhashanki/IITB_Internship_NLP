@@ -1,6 +1,6 @@
 Flask
 gunicorn
-re
+regex
 numpy
 pandas
 sklearn
