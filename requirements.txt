@@ -1,2 +1,10 @@
 Flask
 gunicorn
+re
+numpy
+pandas
+sklearn
+pickle
+nltk
+sentence_transformers
+gensim
