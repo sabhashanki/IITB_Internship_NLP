@@ -1,5 +1,4 @@
 from sklearn.feature_extraction.text import CountVectorizer
-import nltk
 from nltk.corpus import stopwords
 import re
 from sentence_transformers import SentenceTransformer
@@ -23,8 +22,10 @@ allstopwords = stopwords.words('english')
 le = LabelEncoder()
 cv = CountVectorizer()
 lemma = WordNetLemmatizer()
+model = SentenceTransformer('distilbert-base-nli-mean-tokens')
 extract_ngram = (1,1)
 hashtag_ngram = (1,2)
+top_n = 5
 
 try:
     naive_model = pickle.load(open('pickle_exports/naive_lang_detect_model.pkl','rb'))
@@ -35,7 +36,7 @@ except:
     logging.error('Pickle import failed')
 
 
-#label encoding and vectorization
+# Label Encoding and Vectorization
 try:
     encoded_y = le.fit_transform(y)
     x_vector = cv.fit_transform(data).toarray()
@@ -59,10 +60,8 @@ def extract(data):
     cvector = CountVectorizer(ngram_range=extract_ngram)                                        
     cvector.fit_transform([data])
     keywords = cvector.get_feature_names_out()
-    model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     data_embed = model.encode([data])
     keyword_embed = model.encode(keywords)
-    top_n = 5
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
     logging.info('Keyword extraction module executed succussfully')
@@ -74,10 +73,8 @@ def hashtagg(data):
     cvector = CountVectorizer(ngram_range=hashtag_ngram)
     cvector.fit_transform([data])
     keywords = cvector.get_feature_names_out()
-    model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     data_embed = model.encode([data])
     keyword_embed = model.encode(keywords)
-    top_n = 5
     distances = cosine_similarity(data_embed, keyword_embed)
     final_keywords = [keywords[index] for index in distances.argsort()[0][-top_n:]]
     final_keywords = ['#' + word.replace(' ','') for word in final_keywords]
@@ -94,7 +91,7 @@ def topic_prediction(data):
     logging.info('Topic prediction module executed')
     return (ldamodel.print_topics(num_topics=1, num_words=1)[0][1])
 
-#Prediction module 
+# Prediction Module 
 def lang_prediction(text):
     x = cv.transform([text]).toarray()
     lang = naive_model.predict(x)
