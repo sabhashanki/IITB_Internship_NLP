@@ -1,5 +1,5 @@
 import unittest
-import lang_detect as ld
+import module_lang_detect as ld
 
 class TestModule(unittest.TestCase):
 
