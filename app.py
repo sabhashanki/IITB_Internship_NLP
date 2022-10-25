@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, jsonify
-import sys
-sys.path.append('Modules')
 from key_extract_hashtag import extract, hashtagg
 from lang_detect import lang_prediction
-from Modules.topic_model import topic_prediction
+from topic_model import topic_prediction
 
 
 app = Flask(__name__)

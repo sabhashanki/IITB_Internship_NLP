@@ -1,6 +1,4 @@
 import unittest
-import sys
-sys.path.append('Modules')
 import lang_detect as ld
 
 class TestModule(unittest.TestCase):
