@@ -12,6 +12,8 @@ import pickle
 import gensim
 from gensim import corpora
 from flask import Flask, render_template, request, jsonify
+
+# Logging
 logging.basicConfig(level = logging.INFO, filename = 'logs/app.log', filemode = 'w', format = '%(asctime)s - %(levelname)s - %(message)s')
 logging.info('All libraries exported')
 
@@ -33,7 +35,6 @@ except:
     logging.error('Pickle import failed')
 
 
-
 #label encoding and vectorization
 try:
     encoded_y = le.fit_transform(y)
@@ -42,7 +43,8 @@ try:
 except:
     logging.error('Encode and vectorization failed')
 
-#cleaning the data
+
+# Data Cleaning Module
 def clean(data):
     stop_free = " ".join([i for i in data.lower().split() if i not in allstopwords])    #removing stopwords 
     punc_free = ''.join(ch for ch in stop_free if ch not in punch)                      #removing punctuations
@@ -103,10 +105,12 @@ def lang_prediction(text):
 # Flask API
 app = Flask(__name__)
 
+# Home Page
 @app.route('/', methods = ['GET'])
 def home():
     return render_template('home.html')
 
+# Predict Page
 @app.route('/predict', methods = ['POST'])
 def predict():
     data = request.form['data']
@@ -116,6 +120,37 @@ def predict():
     hashta = hashtagg(data)
     logging.info('Flask prediction module executed')
     return render_template('home.html', prediction_text1 = f'Language : {lang}', prediction_text2 = f'Topic prediction : {topic}', prediction_text3 = f'Important keywords : {keywords}', prediction_text4 = f'Predicted Hashtags : {hashta}')
+
+@app.route('/json_predict', methods = ['POST'])
+def ReturnJSON():
+    data = request.form['data']
+    keywords = extract(data)
+    lang = lang_prediction(data)
+    topic = [i.split('*')[1] for i in list([topic_prediction(data)])]
+    hashtags = hashtagg(data)
+    if(request.method == 'POST'):
+        data = {
+        
+        "Hashtags": [
+                    {"hashtag1":hashtags[0],"conf_score":"value"}, 
+                    {"hashtag2":hashtags[1],"conf_score":"value"}, 
+                    {"hashtag3":hashtags[2],"conf_score":"value"}, 
+                    {"hashtag4":keywords[3],"conf_score":"value"}, 
+                    {"hashtag5":keywords[4],"conf_score":"value"}
+        ],
+        "Keywords": [
+                    {"Keyword1":keywords[0], "conf_score":"value"}, 
+                    {"Keyword2":keywords[1],"conf_score":"value"}, 
+                    {"Keyword3":keywords[2],"conf_score":"value"}, 
+                    {"Keyword4":keywords[3],"conf_score":"value"}, 
+                    {"Keyword5":keywords[4],"conf_score":"value"}
+        ],        
+
+        "Topic": {"topic_name":topic,"conf_score":"value"},        
+        "Language": {"lang_code":lang,"conf_score":"value"},
+                
+        }
+    return jsonify(data)
 
 # Driver Code
 if __name__ == '__main__':
