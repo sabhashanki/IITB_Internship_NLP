@@ -1,7 +1,7 @@
 # IITB Internship NLP
 
 ### Report
-	This project regards in identifying the language, extract important keywords, predict topic and hashtags using Natural Language Processing techniques. All modules are coded separately in both jupyter notebook and python file. Testing module written and tested for each module. Flask API’s created both in JSON and normal format which cal be accessed through client application. Pipelined CI/CD using Git action and Heroku cloud.
+	This project regards in identifying the language, extract important keywords, predict topic and hashtags using Natural Language Processing techniques. All modules are coded separately in both jupyter notebook and python file. Testing module written and tested for each module. Flask API’s created both in JSON and normal format which can be accessed through client application. Pipelined CI/CD using Git action and Heroku cloud.
 
 ### References
     • Analytics Vidya - Topic Modelling
