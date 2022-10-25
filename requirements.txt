@@ -4,7 +4,6 @@ regex
 numpy
 pandas
 scikit-learn
-pickle
 nltk
 sentence_transformers
 gensim
