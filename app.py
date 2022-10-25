@@ -121,6 +121,7 @@ def predict():
     logging.info('Flask prediction module executed')
     return render_template('home.html', prediction_text1 = f'Language : {lang}', prediction_text2 = f'Topic prediction : {topic}', prediction_text3 = f'Important keywords : {keywords}', prediction_text4 = f'Predicted Hashtags : {hashta}')
 
+# JSON Prediction Page
 @app.route('/json_predict', methods = ['POST'])
 def ReturnJSON():
     data = request.form['data']
